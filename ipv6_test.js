@@ -48,7 +48,9 @@ var dgram = require('dgram');
 var message = new Buffer('(data)');
 
 var server = dgram.createSocket('udp6');
-server.bind(SERVER_PORT);
+server.bind(SERVER_PORT, ip + '%eth0', () => {
+  console.log('SERVER BINDED');
+});
 
 server.on('message', (msg, info) => {
   console.log('Server got message: "' + msg + '"');
