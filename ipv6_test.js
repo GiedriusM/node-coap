@@ -27,6 +27,7 @@ function getRandomInt(min, max) {
 p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 console.log('CAT: ' + p);
 exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/eth0/disable_ipv6'");
+exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/lo/disable_ipv6'");
 p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 console.log('CAT: ' + p);
 ip = 'fe80::' + getRandomInt(1, 1000);
@@ -61,6 +62,8 @@ server.on('error', (error) => {
 });
 
 setTimeout(() => { server.close(); }, 3000);
+
+exec.execSync('sleep 1');
 
 var client = dgram.createSocket('udp6');
 client.bind(CLIENT_PORT);
