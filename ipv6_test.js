@@ -26,6 +26,9 @@ function getRandomInt(min, max) {
 
 p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 console.log('CAT: ' + p);
+exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/eth0/disable_ipv6'");
+p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
+console.log('CAT: ' + p);
 ip = 'fe80::' + getRandomInt(1, 1000);
 p = exec.execSync('sudo ip addr add ' + ip + ' dev eth0');
 console.log('IP: ' + p);
