@@ -24,19 +24,19 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
-p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
-console.log('CAT: ' + p);
+//p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
+//console.log('CAT: ' + p);
 exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'");
-p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
-console.log('CAT: ' + p);
+//p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
+//console.log('CAT: ' + p);
 ip = 'fe80::' + getRandomInt(1, 1000);
-p = exec.execSync('sudo ip addr add ' + ip + '/64 dev eth0');
-console.log('IP: ' + p);
+//p = exec.execSync('sudo ip addr add ' + ip + '/64 dev eth0');
+//console.log('IP: ' + p);
 
 console.log(os.networkInterfaces());
 
 
-exec.execSync('sleep 10');
+//exec.execSync('sleep 10');
 
 var HOST = 'ip6-localhost';
 var HOST = '::1';
@@ -48,9 +48,7 @@ var dgram = require('dgram');
 var message = new Buffer('(data)');
 
 var server = dgram.createSocket('udp6');
-server.bind(SERVER_PORT, () => {
-  console.log('SERVER BINDED');
-});
+server.bind(SERVER_PORT);
 
 server.on('message', (msg, info) => {
   console.log('Server got message: "' + msg + '"');
@@ -62,7 +60,7 @@ server.on('error', (error) => {
 
 setTimeout(() => { server.close(); }, 3000);
 
-exec.execSync('sleep 1');
+//exec.execSync('sleep 1');
 
 var client = dgram.createSocket('udp6');
 client.bind(CLIENT_PORT);
