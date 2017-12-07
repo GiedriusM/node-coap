@@ -13,17 +13,32 @@ server.bind(SERVER_PORT);
 server.on('message', (msg, info) => {
   console.log('Server got message: "' + msg + '"');
   console.log(info)
-  server.close();
+});
+server.on('error', (error) => {
+  console.error('SERVER ERROR:', error);
 });
 
+setTimeout(() => { server.close(); }, 3000);
 
 var client = dgram.createSocket('udp6');
 client.bind(CLIENT_PORT);
 
-client.send(message, 0, message.length, SERVER_PORT, HOST,
+function test(host, message) {
+client.send(message, 0, message.length, SERVER_PORT, host,
   function(error, bytes) { 
-    if (error) throw error;
+    if (error) {
+      console.error(error);
+      return;
+    }
     console.log('Message sent to host: "' + HOST + '", port: ' + SERVER_PORT);
-    client.close();
   } 
 );
+}
+setTimeout(() => { client.close(); }, 3000);
+
+test('fe80::1', '0');
+test(HOST, '1');
+test(HOST, '2');
+test(false, '3');
+test('::1', '4');
+test('fe80::1', '5');
