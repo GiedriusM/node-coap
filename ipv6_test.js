@@ -30,10 +30,13 @@ exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/eth0/disable_ipv6'")
 p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 console.log('CAT: ' + p);
 ip = 'fe80::' + getRandomInt(1, 1000);
-p = exec.execSync('sudo ip addr add ' + ip + ' dev eth0');
+p = exec.execSync('sudo ip addr add ' + ip + '/64 dev eth0');
 console.log('IP: ' + p);
 
 console.log(os.networkInterfaces());
+
+
+exec.execSync('sleep 10');
 
 var HOST = 'ip6-localhost';
 var HOST = '::1';
@@ -67,7 +70,7 @@ client.send(message, 0, message.length, SERVER_PORT, host,
       console.error(error);
       return;
     }
-    console.log('Message sent to host: "' + HOST + '", port: ' + SERVER_PORT);
+    console.log('Message sent to host: "' + host + '", port: ' + SERVER_PORT);
   } 
 );
 }
@@ -79,5 +82,7 @@ test(HOST, '2');
 test(false, '3');
 test('::1', '4');
 test('fe80::1', '5');
-
+test(ip, '6');
+test('fe80::20e:c6ff:fef9:37c4', '7');
+test('fe80::917', '8');
 
