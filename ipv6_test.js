@@ -1,3 +1,35 @@
+var os = require('os');
+var exec = require('child_process');
+var ifaces = os.networkInterfaces();
+console.log(ifaces);
+
+Object.keys(ifaces).forEach(function (ifname) {
+  var alias = 0;
+
+  ifaces[ifname].forEach(function (iface) {
+    if (alias >= 1) {
+      // this single interface has multiple ipv4 addresses
+      console.log(ifname + ':' + alias, iface.address);
+    } else {
+      // this interface has only one ipv4 adress
+      console.log(ifname, iface.address);
+    }
+    ++alias;
+  });
+});
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
+
+ip = 'fe80::' + getRandomInt(1, 1000);
+p = exec.execSync('sudo ip addr add ' + ip + ' dev eth0');
+console.log(p);
+
+console.log(os.networkInterfaces());
+
 var HOST = 'ip6-localhost';
 var HOST = '::1';
 var SERVER_PORT = 4000;
@@ -43,23 +75,4 @@ test(false, '3');
 test('::1', '4');
 test('fe80::1', '5');
 
-
-var os = require('os');
-var ifaces = os.networkInterfaces();
-console.log(ifaces);
-
-Object.keys(ifaces).forEach(function (ifname) {
-  var alias = 0;
-
-  ifaces[ifname].forEach(function (iface) {
-    if (alias >= 1) {
-      // this single interface has multiple ipv4 addresses
-      console.log(ifname + ':' + alias, iface.address);
-    } else {
-      // this interface has only one ipv4 adress
-      console.log(ifname, iface.address);
-    }
-    ++alias;
-  });
-});
 
