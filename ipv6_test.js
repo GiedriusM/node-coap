@@ -24,9 +24,11 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
+p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
+console.log('CAT: ' + p);
 ip = 'fe80::' + getRandomInt(1, 1000);
 p = exec.execSync('sudo ip addr add ' + ip + ' dev eth0');
-console.log(p);
+console.log('IP: ' + p);
 
 console.log(os.networkInterfaces());
 
