@@ -1,4 +1,5 @@
 var HOST = 'ip6-localhost';
+var HOST = '::1';
 var SERVER_PORT = 4000;
 var CLIENT_PORT  = 4001;
 
