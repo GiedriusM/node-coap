@@ -3,20 +3,20 @@ var exec = require('child_process');
 var ifaces = os.networkInterfaces();
 console.log(ifaces);
 
-Object.keys(ifaces).forEach(function (ifname) {
-  var alias = 0;
-
-  ifaces[ifname].forEach(function (iface) {
-    if (alias >= 1) {
-      // this single interface has multiple ipv4 addresses
-      console.log(ifname + ':' + alias, iface.address);
-    } else {
-      // this interface has only one ipv4 adress
-      console.log(ifname, iface.address);
-    }
-    ++alias;
-  });
-});
+//Object.keys(ifaces).forEach(function (ifname) {
+//  var alias = 0;
+//
+//  ifaces[ifname].forEach(function (iface) {
+//    if (alias >= 1) {
+//      // this single interface has multiple ipv4 addresses
+//      console.log(ifname + ':' + alias, iface.address);
+//    } else {
+//      // this interface has only one ipv4 adress
+//      console.log(ifname, iface.address);
+//    }
+//    ++alias;
+//  });
+//});
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -26,14 +26,14 @@ function getRandomInt(min, max) {
 
 //p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 //console.log('CAT: ' + p);
-exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'");
+//exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'");
 //p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 //console.log('CAT: ' + p);
 ip = 'fe80::' + getRandomInt(1, 1000);
 //p = exec.execSync('sudo ip addr add ' + ip + '/64 dev eth0');
 //console.log('IP: ' + p);
 
-console.log(os.networkInterfaces());
+//console.log(os.networkInterfaces());
 
 
 //exec.execSync('sleep 10');
