@@ -26,8 +26,7 @@ function getRandomInt(min, max) {
 
 p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 console.log('CAT: ' + p);
-exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/eth0/disable_ipv6'");
-exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/lo/disable_ipv6'");
+exec.execSync("sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'");
 p = exec.execSync('cat /proc/sys/net/ipv6/conf/eth0/disable_ipv6');
 console.log('CAT: ' + p);
 ip = 'fe80::' + getRandomInt(1, 1000);
@@ -49,7 +48,7 @@ var dgram = require('dgram');
 var message = new Buffer('(data)');
 
 var server = dgram.createSocket('udp6');
-server.bind(SERVER_PORT, ip + '%eth0', () => {
+server.bind(SERVER_PORT, () => {
   console.log('SERVER BINDED');
 });
 
